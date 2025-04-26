@@ -150,77 +150,59 @@
       </div>
 
       <div class="cards-holder">
-        <div class="p-card">
-          <img
-            src="img/earrings.jpg"
-            alt=""
-            style="height: 250px; width: 100%"
-          />
-          <h3>Royal Emerald Earrings</h3>
-          <h4>150$</h4>
-          <div class="buttons">
-            <a href="#">
-              <button class="buy">Buy Now</button>
-            </a>
-            <a href="#">
-              <button class="add">Add To Cart</button>
-            </a>
-          </div>
-        </div>
+        
 
-        <div class="p-card">
-          <img
-            src="img/nicklice.jpg"
-            alt=""
-            style="height: 250px; width: 100%"
-          />
-          <h3>Pharaoh Collar Necklace</h3>
-          <h4>350$</h4>
-          <div class="buttons">
-            <a href="#">
-              <button class="buy">Buy Now</button>
-            </a>
-            <a href="#">
-              <button class="add">Add To Cart</button>
-            </a>
-          </div>
-        </div>
 
-        <div class="p-card">
-          <img src="img/set.jpg" alt="" style="height: 250px; width: 100%" />
-          <h3>Nefertiti Gold Set</h3>
-          <h4>650$</h4>
-          <div class="buttons">
-            <a href="#">
-              <button class="buy">Buy Now</button>
-            </a>
-            <a href="#">
-              <button class="add">Add To Cart</button>
-            </a>
-          </div>
-        </div>
+      <?php
+$servername = "localhost";
+$username = "root";
+$password = ""; 
+$dbname = "proudct"; // قاعدة البيانات
 
-        <div class="p-card">
-          <img
-            src="img/stone necklace.jpg"
-            alt=""
-            style="height: 250px; width: 100%"
-          />
-          <h3>Cleopatra Statement Necklace</h3>
-          <h4>250$</h4>
-          <div class="buttons">
-            <a href="#">
-              <button class="buy">Buy Now</button>
-            </a>
-            <a href="#">
-              <button class="add">Add To Cart</button>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    <!-- end Forth section -->
+// التحقق من الاتصال
+if ($conn->connect_error) {
+    die("فشل الاتصال: " . $conn->connect_error);
+}
+
+// تعيين ترميز الاتصال للتعامل مع اللغة العربية
+$conn->set_charset("utf8mb4");
+
+// استعلام للحصول على المنتجات من قاعدة البيانات
+$sql = "SELECT id, name, Price, Img FROM product ORDER BY Price DESC"; // تم تغيير proudct إلى product
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // إخراج بيانات كل صف
+    while($row = $result->fetch_assoc()) {
+        // للصورة blob، ترميز كـ base64
+        $imgSrc = "";
+        if ($row["Img"] !== null) {
+            $imgData = base64_encode($row["Img"]);
+            $imgSrc = "data:image/jpeg;base64," . $imgData;
+        } else {
+            $imgSrc = "img/default.jpg"; // صورة افتراضية إذا كانت فارغة
+        }
+        
+        // عرض بطاقة المنتج
+        echo '<div class="p-card">';
+        echo '<img src="' . $imgSrc . '" alt="' . htmlspecialchars($row["name"]) . '" style="height: 250px; width: 100%">';
+        echo '<h3>' . htmlspecialchars($row["name"]) . '</h3>';
+        echo '<h4>' . $row["Price"] . '$</h4>';
+        echo '<div class="buttons">';
+        echo '<a href="buy.php?id=' . $row["id"] . '"><button class="buy">Buy Now</button></a>';
+        echo '<a href="cart.php?action=add&id=' . $row["id"] . '"><button class="add">Add To Cart</button></a>';
+        echo '</div>';
+        echo '</div>';
+    }
+} else {
+    echo "لا توجد منتجات";
+}
+
+// إغلاق الاتصال
+$conn->close();
+?>
 
     <!-- footer -->
     <footer class="site-footer">

@@ -294,6 +294,25 @@ body {
 }
 
 
+
+.buy:hover {
+  background-color: #3e8e41; /* لون أخضر داكن عند الهوفر */
+  transform: translateY(-2px); /* تأثير رفع الزر قليلاً للأعلى */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل للتأثير */
+}
+
+.add:hover {
+  background-color: #0b7dda; /* لون أزرق داكن عند الهوفر */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* تأثير النقر على الزر */
+.buy:active, .add:active {
+  transform: translateY(0); /* إعادة الزر لمكانه الأصلي عند النقر */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* تقليل الظل */
+}
+
 /* footer */
 
 .site-footer {
