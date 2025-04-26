@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color1: #001219;
+    --color2: #005f73;
+    --color3: #1a7273;
+    --color4: #94d2bd;
+    --color5: #eee3c3;
+    --color6: #ee9b00;
+    --color7: #ca6702;
+    --color8: #bb3e03;
+    --color9: #ae2012;
+    --color10: #9b2226;
+}
+
+body {
+    background-color: var(--color5);
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--color3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    height: 10vh;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .logo img {
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+}
+
+.navbar .logo h1 {
+    color: var(--color5);
+}
+
+.navbar .list ul {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+}
+
+.navbar .list ul a {
+    color: var(--color5);
+    text-decoration: none;
+    padding-inline: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.navbar .list ul a:hover {
+    text-decoration: underline;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.sign h1 {
+    color: var(--color3);
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.x {
+    display: flex;
+    justify-content: center;
+}
+
+.x a {
+    color: var(--color3);
+    transition: all 0.3s;
+}
+
+.x a:hover {
+    color: var(--color2);
+}
+
+.sign {
+    align-items: center;
+    padding: 30px;
+    margin: auto;
+    background-color: var(--color5);
+    border-radius: 15px;
+    width: 25%;
+    box-shadow: #1a7273 0px 22px 70px 4px;
+}
+
+.form {
+    /* gap: 25px; */
+    margin: 10px;
+    text-align: center;
+}
+
+label {
+    font-size: 14px;
+    color: black;
+}
+
+input {
+    border: solid var(--color3) 1.5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#submit {
+    padding: 10px 20px;
+    background-color: var(--color3);
+    color: var(--color5);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 10px;
+    width: 100px;
+}
+
+#submit:hover {
+    background-color: var(--color2);
+}
