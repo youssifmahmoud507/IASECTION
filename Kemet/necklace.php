@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bracelets</title>
+    <title>Necklace</title>
     <!-- link google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,27 +33,27 @@
 
         <div class="list">
             <ul>
-                <a href="home page.html">
+                <a href="index.php">
                     <li>
                         Home
                     </li>
                 </a>
-                <a href="home page.html #categories">
+                <a href="index.php #categories">
                     <li>
                         Categories
                     </li>
                 </a>
-                <a href="about_us.html">
+                <a href="about_us.php">
                     <li>
                         About
                     </li>
                 </a>
-                <a href="contact.html">
+                <a href="contact.php">
                     <li>
                         Contact Us
                     </li>
                 </a>
-                <a href="login.html">
+                <a href="login.php">
                     <li>
                         Login
                     </li>
@@ -75,17 +75,124 @@
 
 
     <h1>
-        Bracelets
+        Necklaces
     </h1>
 
+    
+    <?php
+    
+$servername = "localhost";
+$username = "root";
+$password = ""; 
+$dbname = "proudct"; 
 
+$conn = new mysqli($servername, $username, $password, $dbname);
+// التحقق من الاتصال
+if ($conn->connect_error) {
+    die("فشل الاتصال بقاعدة البيانات: " . $conn->connect_error);
+}
+
+// استعلام للحصول على المنتجات من قاعدة البيانات
+$sql = "SELECT id, name, Price, Img FROM product WHERE category_id ='1' ORDER BY Price DESC";
+$result = $conn->query($sql);
+
+echo '<div class="card-holder">';
+
+if ($result->num_rows > 0) {
+    // إخراج بيانات كل صف
+    while($row = $result->fetch_assoc()) {
+        // للصورة blob، ترميز كـ base64
+        $imgSrc = "";
+        if ($row["Img"] !== null) {
+            $imgData = base64_encode($row["Img"]);
+            $imgSrc = "data:image/jpeg;base64," . $imgData;
+        } else {
+            $imgSrc = "img/default.jpg"; // صورة افتراضية إذا كانت فارغة
+        }
+        
+        // عرض بطاقة المنتج بتنسيق card
+        echo '<div class="card">';
+        echo '<img src="' . $imgSrc . '" alt="' . htmlspecialchars($row["name"]) . '">';
+        echo '<h3>' . htmlspecialchars($row["name"]) . '</h3>';
+        echo '<h4>' . $row["Price"] . '$</h4>';
+        echo '<div class="buttons">';
+        echo '<a href="buy.php?id=' . $row["id"] . '"><button class="buy">Buy Now</button></a>';
+        echo '<a href="cart.php?action=add&id=' . $row["id"] . '"><button class="add">Add To Cart</button></a>';
+        echo '</div>';
+        echo '</div>';
+    }
+} else {
+    echo "لا توجد منتجات";
+}
+
+echo '</div>'; // إغلاق card-holder
+
+// إغلاق الاتصال
+$conn->close();
+?>
+
+
+
+
+
+
+
+<!-- 
     <div class="card-holder">
 
         <div class="card">
 
-            <img src="./img/bracelet4.jpg" alt="">
+            <img src="./img/necklace4.jpg" alt="">
 
-            <h3>Turquoise Cuff Bracelet</h3>
+            <h3>Pharaoh Collar Necklace</h3>
+
+            <h4>350$</h4>
+
+            <div class="buttons">
+
+                <a href="#">
+                    <button class="buy">
+                        Buy Now
+                    </button>
+                </a>
+
+                <a href="#">
+                    <button class="add">
+                        Add To Cart
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <img src="./img/necklace1.jpg" alt="">
+
+            <h3>Pharaoh's Blue Collar Necklace</h3>
+
+            <h4>179.99$</h4>
+
+            <div class="buttons">
+
+                <a href="#">
+                    <button class="buy">
+                        Buy Now
+                    </button>
+                </a>
+
+                <a href="#">
+                    <button class="add">
+                        Add To Cart
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <img src="./img/stone necklace.jpg" alt="">
+
+            <h3>Cleopatra Statement Necklace</h3>
 
             <h4>250$</h4>
 
@@ -108,11 +215,35 @@
 
         <div class="card">
 
-            <img src="./img/bracelet1.jpg" alt="">
+            <img src="./img/necklace3.jpg" alt="">
 
-            <h3>Hieroglyphic Cuff Bracelet</h3>
+            <h3>Royal Turquoise Pendant Set</h3>
 
-            <h4>150$</h4>
+            <h4>199.99$</h4>
+
+            <div class="buttons">
+
+                <a href="#">
+                    <button class="buy">
+                        Buy Now
+                    </button>
+                </a>
+
+                <a href="#">
+                    <button class="add">
+                        Add To Cart
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <img src="./img/ankh1.jpg" alt="">
+
+            <h3>Golden Ankh Necklace</h3>
+
+            <h4>129.99$</h4>
 
             <div class="buttons">
 
@@ -133,36 +264,11 @@
 
         <div class="card">
 
-            <img src="./img/bracelet2.jpg" alt="">
+            <img src="./img/necklace5.jpg" alt="">
 
-            <h3>Golden Filigree Bracelet</h3>
+            <h3>Egyptian Blue Gemstone Set</h3>
 
-            <h4>200$</h4>
-
-            <div class="buttons">
-
-                <a href="#">
-                    <button class="buy">
-                        Buy Now
-                    </button>
-                </a>
-
-                <a href="#">
-                    <button class="add">
-                        Add To Cart
-                    </button>
-                </a>
-            </div>
-        </div>
-
-
-        <div class="card">
-
-            <img src="./img//bracelet3.jpg" alt="">
-
-            <h3>Golden Elegance Cuff Bracelet</h3>
-
-            <h4>149.99$</h4>
+            <h4>249.99$</h4>
 
             <div class="buttons">
 
@@ -180,60 +286,31 @@
             </div>
         </div>
 
-
-        <!-- <div class="card">
-
-            <img src="./img/3.jpg" alt="">
-
-            <h3>Zeyad Waleed</h3>
-
-            <h4>Title</h4>
-
-            <div class="buttons">
-
-                <a href="#">
-                    <button class="buy">
-                        Buy Now
-                    </button>
-                </a>
-
-                <a href="#">
-                    <button class="add">
-                        Add To Cart
-                    </button>
-                </a>
-            </div>
-        </div> -->
+    </div> -->
 
 
-        <!-- <div class="card">
 
-            <img src="./img/4.jpg" alt="">
 
-            <h3>Zeyad Waleed</h3>
 
-            <h4>Title</h4>
 
-            <div class="buttons">
 
-                <a href="#">
-                    <button class="buy">
-                        Buy Now
-                    </button>
-                </a>
 
-                <a href="#">
-                    <button class="add">
-                        Add To Cart
-                    </button>
-                </a>
-            </div>
-        </div> -->
 
-    </div>
+
 
 
     <!-- footer -->
+
+
+
+
+
+
+
+
+
+
+
     <footer class="site-footer">
 
 
@@ -257,6 +334,16 @@
             </div>
         </div>
     </footer>
+
+
+
+
+
+
+
+
+
+
 
 
 

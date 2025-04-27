@@ -37,19 +37,19 @@
 
       <div class="list">
         <ul>
-          <a href="home page.html" target="_blank">
+          <a href="index.php" target="_blank">
             <li>Home</li>
           </a>
           <a href="#categories">
             <li>Categories</li>
           </a>
-          <a href="about_us.html" target="_blank">
+          <a href="about_us.php" target="_blank">
             <li>About</li>
           </a>
-          <a href="contact.html" target="_blank">
+          <a href="contact.php" target="_blank">
             <li>Contact Us</li>
           </a>
-          <a href="login.html" target="_blank">
+          <a href="login.php" target="_blank">
             <li>Login</li>
           </a>
           <a href="#">
@@ -110,28 +110,28 @@
       </div>
 
       <div class="cat-cards">
-        <a href="bracelet.html">
+        <a href="bracelet.php">
           <div class="card">
             <img src="img/bracelete icon.png" alt="Bracelete" />
             <h2>Bracelet</h2>
           </div>
         </a>
 
-        <a href="earrings.html">
+        <a href="earrings.php">
           <div class="card">
             <img src="img/earrings icon.png" alt="Earrings" />
             <h2>Earrings</h2>
           </div>
         </a>
 
-        <a href="necklace.html">
+        <a href="necklace.php">
           <div class="card">
             <img src="img/necklace icon.png" alt="Necklace" />
             <h2>Necklace</h2>
           </div>
         </a>
 
-        <a href="rings&sets.html">
+        <a href="rings&sets.php">
           <div class="card">
             <img src="img/ring icon.png" alt="Rings" />
             <h2>Rings & Sets</h2>
@@ -170,7 +170,7 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 // استعلام للحصول على المنتجات من قاعدة البيانات
-$sql = "SELECT id, name, Price, Img FROM product ORDER BY Price DESC"; // تم تغيير proudct إلى product
+$sql = "SELECT id, name, Price, Img FROM product  where category_id ='1' ORDER BY Price DESC   "; // تم تغيير proudct إلى product
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
