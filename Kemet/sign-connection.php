@@ -5,7 +5,7 @@ if(!isset($_SESSION)){
 
 
 
-$db=mysqli_connect('localhost','root','','project-ia');
+$db=mysqli_connect('localhost','root','','proudct');
 $error=array();
 
 if(isset($_POST['signup'])){

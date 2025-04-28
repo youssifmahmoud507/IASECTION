@@ -52,7 +52,7 @@
           <a href="login.php" target="_blank">
             <li>Login</li>
           </a>
-          <a href="#">
+          <a href="">
             <li>
               <i class="fa-solid fa-heart"></i>
             </li>
@@ -109,6 +109,8 @@
         <h1>Our Categories</h1>
       </div>
 
+      <!-- باسل بيقولك ذاكر الباك كويس الفرونت اديك شوفت بنفسك بيعمل في ايه   -->
+
       <div class="cat-cards">
         <a href="bracelet.php">
           <div class="card">
@@ -161,16 +163,20 @@ $dbname = "proudct"; // قاعدة البيانات
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// التحقق من الاتصال
+// اتكاد  من الاتصال
 if ($conn->connect_error) {
-    die("فشل الاتصال: " . $conn->connect_error);
+    die("Ana Fashlt fe coonect roh atsarf 😡 : " . $conn->connect_error);
 }
 
-// تعيين ترميز الاتصال للتعامل مع اللغة العربية
+// تعيين ترميز الاتصال للتعامل مع اللغة العربية ده نصيحه شات جبتي  بصراحه المفروض  html  اللي يحتويها 
 $conn->set_charset("utf8mb4");
 
-// استعلام للحصول على المنتجات من قاعدة البيانات
-$sql = "SELECT id, name, Price, Img FROM product  where category_id ='1' ORDER BY Price DESC   "; // تم تغيير proudct إلى product
+// كويري للحصول على المنتجات من قاعدة البيانات
+// ابقي بص علي الكاتيجوري id و غيرها حسب الحاجه 
+
+
+// !خد بالك دي غلطه املائيه و انت بتكتب انا اللي غلطنها ايوه  proudct إلى product
+$sql = "SELECT id, name, Price, Img FROM product  where category_id ='6' ORDER BY Price DESC   "; 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -182,10 +188,10 @@ if ($result->num_rows > 0) {
             $imgData = base64_encode($row["Img"]);
             $imgSrc = "data:image/jpeg;base64," . $imgData;
         } else {
-            $imgSrc = "img/default.jpg"; // صورة افتراضية إذا كانت فارغة
+            $imgSrc = ""; // صورة افتراضية إذا كانت فارغة
         }
         
-        // عرض بطاقة المنتج
+        // عرض  المنتج
         echo '<div class="p-card">';
         echo '<img src="' . $imgSrc . '" alt="' . htmlspecialchars($row["name"]) . '" style="height: 250px; width: 100%">';
         echo '<h3>' . htmlspecialchars($row["name"]) . '</h3>';
@@ -197,7 +203,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
     }
 } else {
-    echo "لا توجد منتجات";
+    echo "ana fady amlany 😢";
 }
 
 // إغلاق الاتصال
