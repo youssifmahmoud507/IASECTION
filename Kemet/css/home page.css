@@ -393,3 +393,32 @@ body {
 .social-icons a.instagram:hover {
     background-color: #ea4c89
 }
+
+
+.third .cat-cards .cat-cards {
+    transition: all 0.3s ease;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.third .cat-cards .cat-cards:hover {
+    transform: translateY(-10px);
+    background-color: var(--color4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.third .cat-cards .cat-cards:hover img {
+    transform: scale(1.1);
+}
+
+.third .cat-cards .cat-cards img {
+    width: 60px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+.third .cat-cards .cat-cards:hover h3 {
+    color: var(--color1);
+}

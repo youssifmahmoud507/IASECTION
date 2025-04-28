@@ -1,6 +1,50 @@
 <?php
-include('sign-connection.php')
+include("sign-connection.php");
+
+if(isset($_POST['signup'])){
+   
+    
+    $username = mysqli_real_escape_string($db, $_POST['name']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $pass = mysqli_real_escape_string($db, $_POST['password']);
+    $pass2 = mysqli_real_escape_string($db, $_POST['confirm-Password']);
+    
+    if(empty($username)){
+        array_push($error, "username is required");
+    }
+    if(empty($email)){
+        array_push($error, "Email is required");
+    }
+    if(empty($pass)){
+        array_push($error, "password is required");
+    }
+    if($pass2 != $pass){ 
+        array_push($error, "passwords do not match");
+    }
+    
+   
+    $check_email = "SELECT * FROM signup WHERE email='$email' LIMIT 1";
+    $result = mysqli_query($db, $check_email);
+    if (mysqli_num_rows($result) > 0) {
+        array_push($error, "Email already exists");
+    }
+    
+    if(count($error) == 0){
+       
+        $sql = "INSERT INTO signup (name, email, password) VALUES ('$username', '$email', '$pass')";
+        if (mysqli_query($db, $sql)) {
+            $_SESSION['username'] = $username;
+            $_SESSION['success'] = "Registration successful";
+            header('location: login.php');
+            exit();
+        } else {
+            array_push($error, "Database error: " . mysqli_error($db));
+        }
+    }
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +145,7 @@ include('sign-connection.php')
             </form>
 
             <div class="x">
-                <p>Already have an account ? <a href="login.html">log in</a> </p>
+                <p>Already have an account ? <a href="login.php">log in</a> </p>
             </div>
         </div>
     </div>

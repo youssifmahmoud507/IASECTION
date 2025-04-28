@@ -92,7 +92,7 @@ if ($conn->connect_error) {
 }
 
 // استعلام للحصول على المنتجات من قاعدة البيانات
-$sql = "SELECT id, name, Price, Img FROM product WHERE category_id ='1' ORDER BY Price DESC";
+$sql = "SELECT id, name, Price, Img FROM product WHERE category_id ='9' ORDER BY Price DESC";
 $result = $conn->query($sql);
 
 echo '<div class="card-holder">';
@@ -106,7 +106,7 @@ if ($result->num_rows > 0) {
             $imgData = base64_encode($row["Img"]);
             $imgSrc = "data:image/jpeg;base64," . $imgData;
         } else {
-            $imgSrc = "img/default.jpg"; // صورة افتراضية إذا كانت فارغة
+            $imgSrc = "img/default.jpg"; // صورة افتراضي لو كانت فاضيه انا مكسل احطها 
         }
         
         // عرض بطاقة المنتج بتنسيق card
