@@ -15,7 +15,7 @@ if(isset($_POST['register'])){
 
 if(empty($email)){
     array_push($error, 'PLEASE ENTER YOUR EMAIL');
-}<?php
+}
 if(isset($_POST['register'])){
     $email = mysqli_real_escape_string($db, $_POST['em']);
     $password = mysqli_real_escape_string($db, $_POST['pas']);
@@ -42,7 +42,6 @@ if(isset($_POST['register'])){
         }
     }
 }
-?>
 
 if(empty($password)){
     array_push($error, 'PLEASE ENTER THE PASSWORD');
