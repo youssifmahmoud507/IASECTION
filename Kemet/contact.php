@@ -1,3 +1,94 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+$errors = array();
+$success_msg = "";
+
+// Connect to database
+$db = mysqli_connect('localhost', 'root', '', 'proudct');
+
+if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// If the user clicks the send button
+if (isset($_POST['submit'])) {
+    // Get form data
+    $full_name = mysqli_real_escape_string($db, $_POST['name']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $message = mysqli_real_escape_string($db, $_POST['message']);
+
+    // Validate inputs
+    if (empty($full_name)) {
+        $errors[] = "Name is required";
+    }
+
+    if (empty($email)) {
+        $errors[] = "Email is required";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) { /*// FILTER_VALIDATE_EMAIL دي يسطا فاليديت ده ايميل ولا لا //*/
+        $errors[] = "Invalid email format";
+    }
+
+    if (empty($message)) {
+        $errors[] = "Message is required";
+    }
+
+    // If no errors, insert into database
+    if (count($errors) == 0) {
+        $query = "INSERT INTO contact_messages (full_name, email, message, created_at) VALUES ('$full_name', '$email', '$message', NOW())";
+
+        if (mysqli_query($db, $query)) {
+            $success_msg = "Your message has been sent successfully!";
+            // Clear form data after successful submission
+            $_POST = array();
+        } else {
+            $errors[] = "Error: " . mysqli_error($db);
+        }
+    }
+}
+
+/* basel bos 
+
+
+    full_name 3ady user name
+    email bardo eshta
+    message tamam
+    بالنسبة ل NOW()
+    دي يسطا بص دي بتريترن وقت الماسدج اتبعت اامتى
+    عشان تكون فاهم
+    فا سيبها
+
+
+
+*/  
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
