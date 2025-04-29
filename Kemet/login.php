@@ -1,32 +1,5 @@
 <?php
 include("sign-connection.php");
-
-if(isset($_POST['register'])){
-    $email = mysqli_real_escape_string($db, $_POST['em']);
-    $password = mysqli_real_escape_string($db, $_POST['pas']);
-    
-    if(empty($email)){
-        array_push($error, 'PLEASE ENTER YOUR EMAIL');
-    }
-    if(empty($password)){
-        array_push($error, 'PLEASE ENTER THE PASSWORD');
-    }
-    
-    if(count($error) == 0){
-        $query = "SELECT * FROM signup WHERE email='$email' AND password='$password'";
-        $result = mysqli_query($db, $query);
-        
-        if(mysqli_num_rows($result) == 1){  
-            $user_data = mysqli_fetch_assoc($result);
-            $_SESSION['username'] = $user_data['name'];
-            $_SESSION['success'] = 'welcome!';
-            header('location: index.html');
-            exit();
-        } else {
-            array_push($error, "Wrong email or password");
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -62,10 +35,18 @@ if(isset($_POST['register'])){
         <div class="sign">
             <h1>Login</h1>
             
+            <!-- عرض رسالة النجاح -->
+            <?php if(isset($_SESSION['success'])): ?>
+                <div class="success">
+                    <p style="color: green;"><?php echo $_SESSION['success']; ?></p>
+                    <?php unset($_SESSION['success']); // إزالة الرسالة بعد عرضها ?>
+                </div>
+            <?php endif ?>
+            
             <!-- عرض رسائل الخطأ -->
-            <?php if(count($error) > 0): ?>
+            <?php if(isset($errors) && count($errors) > 0): ?>
                 <div class="error">
-                    <?php foreach($error as $err): ?>
+                    <?php foreach($errors as $err): ?>
                         <p style="color: red;"><?php echo $err; ?></p>
                     <?php endforeach ?>
                 </div>
@@ -76,16 +57,16 @@ if(isset($_POST['register'])){
                     <div>
                         <label for="email">Email</label>
                         <br>
-                        <input type="email" id="email" name="em" required>
+                        <input type="email" id="email" name="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                     </div>
                    
                     <div>
                         <label for="pass">Password</label>
                         <br>
-                        <input type="password" id="pass" name="pas" required>
+                        <input type="password" id="pass" name="password" required>
                         <br>
                     </div>
-                    <input type="submit" value="Login" name="register">
+                    <input type="submit" value="Login" name="login">
                 </div>
             </form>
             <div class="x">
