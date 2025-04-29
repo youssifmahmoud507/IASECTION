@@ -1,8 +1,4 @@
 <?php
-// تفعيل إظهار جميع الأخطاء للتصحيح
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 // Start session if not already started
 if (!isset($_SESSION)) {
